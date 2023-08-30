@@ -1,0 +1,65 @@
+<span class="fs-2">Base64 encode & decode</span>
+<div class="mb-2">
+    <select class="form-select width-auto d-inline" id="mode-switch" aria-label="Default select example">
+        <option value="encode">Encode</option>
+        <option value="decode">Decode</option>
+    </select>
+</div>
+
+<div class="form-check" id="url-encode-holder">
+    <input class="form-check-input" type="checkbox" id="url-encode">
+    <label class="form-check-label" for="url-encode">
+      URL encode
+    </label>
+</div>
+
+<div class="form-floating mt-3">
+    <textarea class="form-control textarea-big trigger" placeholder="Input" id="input"></textarea>
+    <label for="input">Input</label>
+</div>
+
+<div class="form-floating mt-5">
+    <textarea class="form-control textarea-big" id="output" readonly></textarea>
+    <label for="output">Output</label>
+</div>
+
+<script>
+    $("#mode-switch").on("change", update);
+    $("#url-encode").on("change", update);
+    $("#input").on("input", update);
+
+    function update() {
+        let mode = $("#mode-switch").val();
+        if (mode != "encode" && mode != "decode") {
+            $("#mode-switch").val("encode");
+            mode = "encode";
+        }
+
+        //
+
+        if (mode == "encode") {
+            $("#url-encode-holder").fadeIn();
+
+            let val = btoa($("#input").val());
+            if ($("#url-encode").is(":checked")) {
+                val = encodeURIComponent(val);
+            }
+
+            $("#output").html(val);
+            return;
+        }
+
+        if (mode == "decode") {
+            $("#url-encode-holder").fadeOut();
+            try {
+                let val = atob($("#input").val());
+                $("#output").removeClass("text-warning");
+                $("#output").text(val);
+            } catch (e) {
+                $("#output").addClass("text-warning");
+                $("#output").text(`Invalid Base64`);
+            }
+            return;
+        }
+    }
+</script>

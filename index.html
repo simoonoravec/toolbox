@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toolbox</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="assets/custom.css">
+</head>
+<body>
+    <div class="d-flex flex-row">
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+            <span class="fs-4">Toolbox</span>
+
+            <hr>
+
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a role="button" class="nav-link" hx-get="pages/base64.html" hx-trigger="intersect once, click" hx-swap="innerHTML transition:true" hx-target="#page"><i class="bi bi-box-seam me-2"></i>Base64</a>
+                </li>
+            </ul>
+
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a role="button" class="nav-link" hx-get="pages/hashes.html" hx-trigger="click" hx-swap="innerHTML transition:true" hx-target="#page"><i class="bi bi-hash me-2"></i>Hashes</a>
+                </li>
+            </ul>
+
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a role="button" class="nav-link" hx-get="pages/timestamp.html" hx-trigger="click" hx-swap="innerHTML transition:true" hx-target="#page"><i class="bi bi-clock me-2"></i>Timestamp</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="d-flex flex-column text-white bg-dark ms-5 mt-3">
+            <div id="page"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/htmx/1.9.5/htmx.min.js"></script>
+    <script type="text/javascript" src="assets/main.js"></script>
+</body>
+</html>

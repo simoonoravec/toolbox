@@ -1,0 +1,9 @@
+.textarea-big {
+    height: 20rem !important;
+    width: 35rem;
+    resize: none;
+}
+
+.width-auto {
+    width: auto !important;
+}
