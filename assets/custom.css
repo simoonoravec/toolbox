@@ -7,3 +7,7 @@
 .width-auto {
     width: auto !important;
 }
+
+.alert-small {
+    padding: .5rem 1rem;  
+}
