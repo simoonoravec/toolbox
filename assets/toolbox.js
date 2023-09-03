@@ -41,6 +41,7 @@ class Toolbox {
                 }
             });
             $.get("assets/navbar.json", (data) => {
+                $(".nav").empty();
                 for (let i in data) {
                     let item = data[i];
     
