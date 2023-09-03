@@ -1,5 +1,10 @@
 $(function() {
+    document.addEventListener("htmx:responseError", function(evt) {
+        showError();
+    });
+
     generateNavbar().then(() => {
+        console.log("got here");
         htmx.process(".nav");
         registerNavbarEvents();
 
@@ -14,7 +19,7 @@ $(function() {
             $("#loading").fadeOut(300);
             $("#app").delay(100).fadeIn(300);
         }, 100);
-    })
+    }).catch(() => showError());
 });
 
 const registerNavbarEvents = () => {
@@ -29,8 +34,19 @@ const registerNavbarEvents = () => {
     }
 }
 
+const showError = () => {
+    $("#app").fadeOut(100);
+    $("#loading").fadeOut(200);
+    $("#error").delay(100).fadeIn(200);
+}
+
 const generateNavbar = () => {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
+        $.ajaxSetup({
+            error: function(xhr, status, error) {
+                reject();
+            }
+        });
         $.get("assets/navbar.json", function(data) {
             for (i in data) {
                 let item = data[i];
@@ -53,7 +69,7 @@ const generateNavbar = () => {
                 `);
             }
 
-            resolve(true);
+            resolve();
         });
     });
 }
