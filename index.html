@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="d-flex flex-row">
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+        <div class="d-flex flex-column flex-shrink-0 p-3" style="width: 280px;">
             <span class="fs-4">Toolbox</span>
 
             <hr>
@@ -40,12 +40,18 @@
                 </li>
             </ul>
 
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a role="button" class="nav-link" hx-get="pages/jsonparser.html" hx-trigger="click" hx-swap="innerHTML transition:true" hx-target="#page"><i class="bi bi-filetype-json me-2"></i>JSON beautifier</a>
+                </li>
+            </ul>
+
             <div class="ms-3 mt-4 text-secondary">
                 <a href="https://github.com/simoonoravec/toolbox" target="_blank" class="text-secondary text-decoration-none"><i class="bi bi-github d-inline"></i> Source code</a>
             </div>
         </div>
 
-        <div class="d-flex flex-column text-white bg-dark ms-5 mt-3">
+        <div class="d-flex flex-column ms-5 mt-3">
             <div id="page"></div>
         </div>
     </div>

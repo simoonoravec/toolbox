@@ -1,0 +1,30 @@
+<span class="fs-2">JSON beautifier</span>
+<div class="form-floating mt-3 mb-3">
+    <textarea class="form-control textarea-big trigger" placeholder="JSON string" id="input"></textarea>
+    <label for="input">JSON string</label>
+</div>
+
+<hr>
+
+<div class="form-floating mt-3 mb-3">
+    <textarea class="form-control textarea-big trigger" id="output" readonly></textarea>
+    <label for="output">Beautified json</label>
+</div>
+
+<script>
+    $("#input").on("input", update);
+
+    function update() {
+        try {
+            let val = $("#input").val();
+            let json = JSON.parse(val);
+            json = JSON.stringify(json, null, 4);
+            
+            $("#output").removeClass("text-warning");
+            $("#output").text(json);
+        } catch (e) {
+            $("#output").addClass("text-warning");
+            $("#output").text(`Invalid JSON`);
+        }
+    }
+</script>
