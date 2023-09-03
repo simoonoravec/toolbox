@@ -4,6 +4,12 @@
     resize: none;
 }
 
+.textarea-big2 {
+    height: 30rem !important;
+    width: 50rem;
+    resize: none;
+}
+
 .width-auto {
     width: auto !important;
 }

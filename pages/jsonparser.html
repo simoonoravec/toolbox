@@ -15,8 +15,14 @@
     $("#input").on("input", update);
 
     function update() {
+        let val = $("#input").val();
+        if (val.length == 0) {
+            $("#output").removeClass("text-warning");
+            $("#output").text("");
+            return;
+        }
+
         try {
-            let val = $("#input").val();
             let json = JSON.parse(val);
             json = JSON.stringify(json, null, 4);
             

@@ -1,0 +1,67 @@
+<span class="fs-2">Lorem Ipsum geneator</span>
+<div class="form-check mt-3 text-center">
+    <label for="para-num" class="form-label">Paragraphs: <b id="para-num-label">2</b></label>
+    <input type="range" min="1" max="5" value="2" class="form-range trigger" id="para-num">
+</div>
+<div class="form-check mt-2 text-center">
+    <label for="word-num" class="form-label">Words per paragraph: <b id="word-num-label">50</b></label>
+    <input type="range" min="10" max="500" step="5" value="50" class="form-range trigger" id="word-num">
+</div>
+<div class="form-check mt-2">
+    <input class="form-check-input trigger" type="checkbox" id="chk-start-lorem" checked>
+    <label class="form-check-label" for="chk-start-lorem">
+        Start with "Lorem ipsum dolor sit amet, "
+    </label>
+</div>
+<hr>
+<button class="btn btn-primary" onclick="update();"><i class="bi bi-arrow-clockwise"></i> Regenerate</button>
+<div class="form-floating mt-3">
+    <textarea class="form-control textarea-big2 trigger" id="output" readonly></textarea>
+    <label for="output">Output</label>
+</div>
+
+<script>
+    $(update(2, 50, true));
+    $(".trigger").on("input", update);
+
+    function generate(paragraphs, wordsPerParagraph, startWithLoremIpsum) {
+        const words = [
+            "Lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing",
+            "elit", "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore",
+            "et", "dolore", "magna", "aliqua", "Ut", "enim", "ad", "minim", "veniam",
+            "quis", "nostrud", "exercitation", "ullamco", "laboris", "nisi", "ut",
+            "aliquip", "ex", "ea", "commodo", "consequat", "Duis", "aute", "irure",
+            "dolor", "in", "reprehenderit", "in", "voluptate", "velit", "esse", "cillum",
+            "dolore", "eu", "fugiat", "nulla", "pariatur", "Excepteur", "sint", "occaecat",
+            "cupidatat", "non", "proident", "sunt", "in", "culpa", "qui", "officia",
+            "deserunt", "mollit", "anim", "id", "est", "laborum"
+        ];
+
+        let loremIpsumText = "";
+
+        for (let i = 0; i < paragraphs; i++) {
+            if (startWithLoremIpsum) {
+            loremIpsumText += "Lorem ipsum dolor sit amet, ";
+            }
+            for (let j = startWithLoremIpsum ? 4 : 0; j < wordsPerParagraph; j++) {
+            const randomIndex = Math.floor(Math.random() * words.length);
+            const word = words[randomIndex];
+            loremIpsumText += word + " ";
+            }
+            loremIpsumText += "\n\n";
+        }
+
+        return loremIpsumText.trim();
+    }
+
+    function update() {
+        let paragraphs = $("#para-num").val();
+        let words = $("#word-num").val();
+        let startWithLoremIpsum = $("#chk-start-lorem").is(":checked");
+
+        $("#para-num-label").text(paragraphs);
+        $("#word-num-label").text(words);
+
+        $("#output").text(generate(paragraphs, words, startWithLoremIpsum));
+    }
+</script>
