@@ -1,6 +1,8 @@
 $(function() {
     $("#loading").show();
 
+    initTooltips();
+
     document.addEventListener("htmx:responseError", function(evt) {
         Toolbox.showError();
     });
@@ -11,6 +13,10 @@ $(function() {
         }
 
         Toolbox.unregisterEvents();
+    });
+
+    document.addEventListener("htmx:afterSwap", function(evt) {
+        initTooltips();
     });
 
     Toolbox.generateNavbar().then(() => {
@@ -30,3 +36,5 @@ $(function() {
         }, 100);
     });
 });
+
+const initTooltips = () => document.querySelectorAll("[data-bs-toggle='tooltip']").forEach((el) => new bootstrap.Tooltip(el));
