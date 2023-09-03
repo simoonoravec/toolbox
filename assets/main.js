@@ -13,7 +13,7 @@ $(function() {
 
             $("#loading").fadeOut(300);
             $("#app").delay(100).fadeIn(300);
-        }, 300);
+        }, 100);
     })
 });
 
