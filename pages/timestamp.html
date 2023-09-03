@@ -29,8 +29,8 @@
         });
     });
 
-    $("#locale-selector").on("change", update);
-    $("#timestamp").on("input", update);
+    Toolbox.registerEvent("#locale-selector", "change", update);
+    Toolbox.registerEvent("#timestamp", "input", update);
 
     function uts() {
         return Math.round(Date.now()/1000);

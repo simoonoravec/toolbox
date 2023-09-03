@@ -24,9 +24,9 @@
 </div>
 
 <script>
-    $("#mode-switch").on("change", update);
-    $("#url-encode").on("change", update);
-    $("#input").on("input", update);
+    Toolbox.registerEvent("#mode-switch", "change", update);
+    Toolbox.registerEvent("#url-encode", "change", update);
+    Toolbox.registerEvent("#input", "input", update);
 
     function update() {
         let mode = $("#mode-switch").val();

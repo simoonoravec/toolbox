@@ -12,7 +12,7 @@
 </div>
 
 <script>
-    $("#input").on("input", update);
+    Toolbox.registerEvent("#input", "input", update);
 
     function update() {
         let val = $("#input").val();

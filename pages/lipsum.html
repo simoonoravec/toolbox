@@ -22,7 +22,8 @@
 
 <script>
     $(update(2, 50, true));
-    $(".trigger").on("input", update);
+
+    Toolbox.registerEvent(".trigger", "input", update);
 
     function generate(paragraphs, wordsPerParagraph, startWithLoremIpsum) {
         const words = [

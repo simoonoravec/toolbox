@@ -2,12 +2,16 @@ $(function() {
     $("#loading").show();
 
     document.addEventListener("htmx:responseError", function(evt) {
-        showError();
+        Toolbox.showError();
     });
 
-    generateNavbar().then(() => {
+    document.addEventListener("htmx:beforeSwap", function(evt) {
+        Toolbox.unregisterEvents();
+    });
+
+    Toolbox.generateNavbar().then(() => {
         htmx.process(".nav");
-        registerNavbarEvents();
+        Toolbox.registerNavbarEvents();
 
         setTimeout(() => {
             let hash = location.hash.replace("#", "");
@@ -23,56 +27,76 @@ $(function() {
     });
 });
 
-const registerNavbarEvents = () => {
-    let elements = document.getElementsByClassName("nav-link");
-    for(let i = 0; i < elements.length; i++) {
-        elements[i].onclick = function () {
-            for(let j = 0; j < elements.length; j++) elements[j].classList.remove("active");
-            this.classList.add("active");
+class Toolbox {
+    static eventTargets = [];
 
-            location.hash = $(this).data("page-name");
+    static registerEvent(target, event, func) {
+        let e = $(target).on(event, func);
+        Toolbox.eventTargets.push(target);
+    }
+
+    static unregisterEvents() {
+        for (let i in Toolbox.eventTargets) {
+            $(Toolbox.eventTargets[i]).unbind();
+            console.log("removed "+Toolbox.eventTargets[i]);
+        }
+
+        console.log("Cleared events.");
+        Toolbox.eventTargets = [];
+    }
+
+    static registerNavbarEvents() {
+        let elements = document.getElementsByClassName("nav-link");
+        for(let i = 0; i < elements.length; i++) {
+            elements[i].onclick = function () {
+                for(let j = 0; j < elements.length; j++) elements[j].classList.remove("active");
+                this.classList.add("active");
+    
+                location.hash = $(this).data("page-name");
+            }
         }
     }
-}
 
-const showError = () => {
-    $("#app").fadeOut(100);
-    $("#loading").fadeOut(200);
-    $("#error").delay(100).fadeIn(200);
-}
+    static showError() {
+        $("#app").fadeOut(100);
+        $("#loading").fadeOut(200);
+        $("#error").delay(100).fadeIn(200);
+    }
 
-const generateNavbar = () => {
-    return new Promise((resolve, reject) => {
-        $.ajaxSetup({
-            error: function(xhr, status, error) {
-                reject();
-                showError();
-            }
+    static generateNavbar() {
+        return new Promise((resolve, reject) => {
+            $.ajaxSetup({
+                error: function(xhr, status, error) {
+                    reject();
+                    showError();
+                }
+            });
+            $.get("assets/navbar.json", (data) => {
+                console.log(data);
+                for (let i in data) {
+                    let item = data[i];
+    
+                    $(".nav").append(`
+                        <li class="nav-item">
+                            <a
+                                role="button"
+                                class="nav-link"
+                                id="navlink-${item.name}"
+                                data-page-name="${item.name}"
+                                hx-get="pages/${item.html}"
+                                hx-trigger="click"
+                                hx-swap="innerHTML transition:true"
+                                hx-target="#page"
+                            >
+                                <i class="bi bi-${item.icon} me-2"></i>
+                                ${item.title}
+                            </a>
+                        </li>
+                    `);
+                }
+    
+                resolve();
+            });
         });
-        $.get("assets/navbar.json", function(data) {
-            for (i in data) {
-                let item = data[i];
-
-                $(".nav").append(`
-                    <li class="nav-item">
-                        <a
-                            role="button"
-                            class="nav-link"
-                            id="navlink-${item.name}"
-                            data-page-name="${item.name}"
-                            hx-get="pages/${item.html}"
-                            hx-trigger="click"
-                            hx-swap="innerHTML transition:true"
-                            hx-target="#page"
-                        >
-                            <i class="bi bi-${item.icon} me-2"></i>
-                            ${item.title}
-                        </a>
-                    </li>
-                `);
-            }
-
-            resolve();
-        });
-    });
+    }
 }
