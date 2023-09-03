@@ -6,6 +6,10 @@ $(function() {
     });
 
     document.addEventListener("htmx:beforeSwap", function(evt) {
+        if (evt.detail.pathInfo.requestPath.includes("ext/")) {
+            return;
+        }
+
         Toolbox.unregisterEvents();
     });
 
@@ -31,11 +35,13 @@ class Toolbox {
     static eventTargets = [];
 
     static registerEvent(target, event, func) {
-        let e = $(target).on(event, func);
+        $(target).on(event, func);
+        console.log("Registered event for "+target)
         Toolbox.eventTargets.push(target);
     }
 
     static unregisterEvents() {
+        console.log("Unregistered events");
         for (let i in Toolbox.eventTargets) {
             $(Toolbox.eventTargets[i]).unbind();
         }
