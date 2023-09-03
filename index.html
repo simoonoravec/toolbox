@@ -10,11 +10,18 @@
     <link rel="stylesheet" href="assets/custom.css">
 </head>
 <body>
-    <div id="loading" class="position-absolute top-50 start-50 translate-middle">
+    <noscript>
+        <div class="position-absolute top-50 start-50 translate-middle">
+            <div class="alert alert-danger text-center fs-5" role="alert">
+                <i class="bi bi-exclamation-circle-fill fs-4"></i><br>This application requires JavaScript to work!<br>Please enable JavaScript in your browser.
+            </div>
+        </div> 
+    </noscript>
+    <div id="loading" style="display: none;" class="position-absolute top-50 start-50 translate-middle">
         <img alt="Loading" src="assets/loading.svg">
     </div>
     <div id="error" style="display: none;" class="position-absolute top-50 start-50 translate-middle">
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger fs-5" role="alert">
             <i class="bi bi-exclamation-circle-fill"></i> An internal error has occured!
         </div>
     </div>

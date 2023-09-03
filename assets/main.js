@@ -1,4 +1,6 @@
 $(function() {
+    $("#loading").show();
+
     document.addEventListener("htmx:responseError", function(evt) {
         showError();
     });
@@ -28,7 +30,7 @@ const registerNavbarEvents = () => {
             for(let j = 0; j < elements.length; j++) elements[j].classList.remove("active");
             this.classList.add("active");
 
-            location.hash = $(this).attr(`id`).replace("navlink-", "");
+            location.hash = $(this).data("page-name");
         }
     }
 }
@@ -57,6 +59,7 @@ const generateNavbar = () => {
                             role="button"
                             class="nav-link"
                             id="navlink-${item.name}"
+                            data-page-name="${item.name}"
                             hx-get="pages/${item.html}"
                             hx-trigger="click"
                             hx-swap="innerHTML transition:true"
