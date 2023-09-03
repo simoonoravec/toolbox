@@ -4,7 +4,6 @@ $(function() {
     });
 
     generateNavbar().then(() => {
-        console.log("got here");
         htmx.process(".nav");
         registerNavbarEvents();
 
