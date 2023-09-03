@@ -19,7 +19,7 @@ $(function() {
             $("#loading").fadeOut(300);
             $("#app").delay(100).fadeIn(300);
         }, 100);
-    }).catch(() => showError());
+    });
 });
 
 const registerNavbarEvents = () => {
@@ -45,6 +45,7 @@ const generateNavbar = () => {
         $.ajaxSetup({
             error: function(xhr, status, error) {
                 reject();
+                showError();
             }
         });
         $.get("assets/navbar.json", function(data) {
