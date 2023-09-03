@@ -38,10 +38,8 @@ class Toolbox {
     static unregisterEvents() {
         for (let i in Toolbox.eventTargets) {
             $(Toolbox.eventTargets[i]).unbind();
-            console.log("removed "+Toolbox.eventTargets[i]);
         }
 
-        console.log("Cleared events.");
         Toolbox.eventTargets = [];
     }
 
