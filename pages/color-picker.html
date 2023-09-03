@@ -50,7 +50,13 @@ Toolbox.registerEvent("#iro-js", "load", function() {
         color: "#f00"
     });
 
+    updateColors(colorPicker.color);
+
     colorPicker.on('color:change', function(color) {
+        updateColors(color);
+    });
+
+    function updateColors(color) {
         $("#current-color").css("background-color", color.hexString);
 
         $("#output-red").val(color.red);
@@ -62,6 +68,6 @@ Toolbox.registerEvent("#iro-js", "load", function() {
         $("#output-hsla").val(color.hslaString);
         $("#output-rgb").val(color.rgbString);
         $("#output-rgba").val(color.rgbaString);
-    });
+    }
 });
 </script>
