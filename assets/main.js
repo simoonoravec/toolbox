@@ -3,12 +3,17 @@ $(function() {
         htmx.process(".nav");
         registerNavbarEvents();
 
-        let hash = location.hash.replace("#", "");
-        if (hash.length == 0 || $(`#navlink-${hash}`).length == 0) {
-            htmx.trigger(`#${$(".nav-link").first().attr("id")}`, "click");
-        } else {
-            htmx.trigger(`#${$(`#navlink-${hash}`).attr("id")}`, "click");
-        }
+        setTimeout(() => {
+            let hash = location.hash.replace("#", "");
+            if (hash.length == 0 || $(`#navlink-${hash}`).length == 0) {
+                htmx.trigger(`#${$(".nav-link").first().attr("id")}`, "click");
+            } else {
+                htmx.trigger(`#${$(`#navlink-${hash}`).attr("id")}`, "click");
+            }
+
+            $("#loading").fadeOut(300);
+            $("#app").delay(100).fadeIn(300);
+        }, 300);
     })
 });
 

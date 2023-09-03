@@ -10,21 +10,26 @@
     <link rel="stylesheet" href="assets/custom.css">
 </head>
 <body>
-    <div class="d-flex flex-row">
-        <div class="d-flex flex-column flex-shrink-0 p-3" style="width: 280px;">
-            <span class="fs-4">Toolbox</span>
-
-            <hr>
-
-            <ul class="nav nav-pills flex-column"></ul>
-
-            <div class="ms-3 mt-4 text-secondary">
-                <a href="https://github.com/simoonoravec/toolbox" target="_blank" class="text-secondary text-decoration-none"><i class="bi bi-github d-inline"></i> Source code</a>
+    <div id="loading" class="position-absolute top-50 start-50 translate-middle">
+        <img alt="Loading" src="assets/loading.svg">
+    </div>
+    <div id="app" style="display: none;">
+        <div class="d-flex flex-row">
+            <div class="d-flex flex-column flex-shrink-0 p-3" style="width: 280px;">
+                <span class="fs-4">Toolbox</span>
+    
+                <hr>
+    
+                <ul class="nav nav-pills flex-column"></ul>
+    
+                <div class="ms-3 mt-4 text-secondary">
+                    <a href="https://github.com/simoonoravec/toolbox" target="_blank" class="text-secondary text-decoration-none"><i class="bi bi-github d-inline"></i> Source code</a>
+                </div>
             </div>
-        </div>
-
-        <div class="d-flex flex-column ms-5 mt-3">
-            <div id="page"></div>
+    
+            <div class="d-flex flex-column ms-5 mt-3">
+                <div id="page"></div>
+            </div>
         </div>
     </div>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
