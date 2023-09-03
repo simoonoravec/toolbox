@@ -6,7 +6,6 @@ $(function() {
     });
 
     document.addEventListener("htmx:beforeSwap", function(evt) {
-        console.log(evt);
         if (evt.detail.requestConfig.parameters.noUnregisterEvents) {
             return;
         }
