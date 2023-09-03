@@ -1,0 +1,38 @@
+[
+    {
+        "name": "base64",
+        "title": "Base64",
+        "icon": "box-seam",
+        "html": "base64.html"
+    },
+    {
+        "name": "hashes",
+        "title": "Hashes",
+        "icon": "hash",
+        "html": "hashes.html"
+    },
+    {
+        "name": "timestamp",
+        "title": "Timestamp",
+        "icon": "clock",
+        "html": "timestamp.html"
+    },
+    {
+        "name": "password",
+        "title": "Password",
+        "icon": "key-fill",
+        "html": "password.html"
+    },
+    {
+        "name": "json",
+        "title": "JSON beautifier",
+        "icon": "filetype-json",
+        "html": "jsonparser.html"
+    },
+    {
+        "name": "lipsum",
+        "title": "Lorem Ipsum generator",
+        "icon": "text-paragraph",
+        "html": "lipsum.html"
+    }
+]

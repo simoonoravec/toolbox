@@ -1,11 +1,54 @@
 $(function() {
-    let elements = document.getElementsByClassName("nav-link");
+    generateNavbar().then(() => {
+        htmx.process(".nav");
+        registerNavbarEvents();
 
-    elements[0].classList.add("active");
+        let hash = location.hash.replace("#", "");
+        if (hash.length == 0 || $(`#navlink-${hash}`).length == 0) {
+            htmx.trigger(`#${$(".nav-link").first().attr("id")}`, "click");
+        } else {
+            htmx.trigger(`#${$(`#navlink-${hash}`).attr("id")}`, "click");
+        }
+    })
+});
+
+const registerNavbarEvents = () => {
+    let elements = document.getElementsByClassName("nav-link");
     for(let i = 0; i < elements.length; i++) {
         elements[i].onclick = function () {
             for(let j = 0; j < elements.length; j++) elements[j].classList.remove("active");
             this.classList.add("active");
+
+            location.hash = $(this).attr(`id`).replace("navlink-", "");
         }
     }
-});
+}
+
+const generateNavbar = () => {
+    return new Promise((resolve) => {
+        $.get("assets/navbar.json", function(data) {
+            for (i in data) {
+                let item = data[i];
+
+                $(".nav").append(`
+                    <li class="nav-item">
+                        <a
+                            role="button"
+                            class="nav-link"
+                            id="navlink-${item.name}"
+                            hx-get="pages/${item.html}"
+                            hx-trigger="click"
+                            hx-swap="innerHTML transition:true"
+                            hx-target="#page"
+                        >
+                            <i class="bi bi-${item.icon} me-2"></i>
+                            ${item.title}
+                        </a>
+                    </li>
+                `);
+            }
+
+            resolve(true);
+        });
+    });
+}
