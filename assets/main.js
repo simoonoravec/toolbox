@@ -6,7 +6,8 @@ $(function() {
     });
 
     document.addEventListener("htmx:beforeSwap", function(evt) {
-        if (evt.detail.pathInfo.requestPath.includes("ext/")) {
+        console.log(evt);
+        if (evt.detail.requestConfig.parameters.noUnregisterEvents) {
             return;
         }
 
