@@ -12,6 +12,7 @@ $(function() {
             return;
         }
 
+        $(".css-temp").remove();
         Toolbox.unregisterEvents();
     });
 
