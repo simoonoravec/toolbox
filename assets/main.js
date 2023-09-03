@@ -70,7 +70,6 @@ class Toolbox {
                 }
             });
             $.get("assets/navbar.json", (data) => {
-                console.log(data);
                 for (let i in data) {
                     let item = data[i];
     
