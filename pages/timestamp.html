@@ -19,9 +19,12 @@
 <span class="fs-5 d-block">Convert date and time to timestamp</span>
 <input type="text" class="form-control" id="date-picker" placeholder="Click here and set the date and time">
 
+<script id="flatpickr-js" type="text/javascript" src="assets/js/flatpickr.min.js"></script>
 <script>
-    $(() => {
-        update();
+    $("head").append('<link rel="stylesheet" href="assets/css/flatpickr.min.css">');
+    $(update);
+
+    Toolbox.registerEvent("#flatpickr-js", "load", function() {
         $("#date-picker").flatpickr({
             enableTime: true,
             enableSeconds: true,
