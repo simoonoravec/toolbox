@@ -1,0 +1,67 @@
+<span class="fs-2">Color picker</span>
+
+<div id="picker" class="mt-5"></div>
+
+<div id="current-color" class="mt-3" style="width: 50%; height: 3rem;"></div>
+
+<div style="width: 50%;">
+    <div class="input-group mt-5 mb-2">
+        <span class="input-group-text">R</span>
+        <input type="text" class="form-control" id="output-red" readonly>
+        <span class="input-group-text">G</span>
+        <input type="text" class="form-control" id="output-green" readonly>
+        <span class="input-group-text">B</span>
+        <input type="text" class="form-control" id="output-blue" readonly>
+    </div>
+
+    <div class="input-group mt-3 mb-2">
+        <span class="input-group-text">HEX</span>
+        <input type="text" class="form-control" id="output-hex" readonly>
+    </div>
+    
+    <div class="input-group mt-2 mb-2">
+        <span class="input-group-text">HSL</span>
+        <input type="text" class="form-control" id="output-hsl" readonly>
+    </div>
+    
+    <div class="input-group mt-2 mb-2">
+        <span class="input-group-text">HSLA</span>
+        <input type="text" class="form-control" id="output-hsla" readonly>
+    </div>
+    
+    <div class="input-group mt-2 mb-2">
+        <span class="input-group-text">RGB</span>
+        <input type="text" class="form-control" id="output-rgb" readonly>
+    </div>
+    
+    <div class="input-group mt-2 mb-2">
+        <span class="input-group-text">RGBA</span>
+        <input type="text" class="form-control" id="output-rgba" readonly>
+    </div>
+</div>
+
+
+<script id="iro-js" src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
+<script>
+var colorPicker;
+Toolbox.registerEvent("#iro-js", "load", function() {
+    colorPicker = new iro.ColorPicker("#picker", {
+        width: 320,
+        color: "#f00"
+    });
+
+    colorPicker.on('color:change', function(color) {
+        $("#current-color").css("background-color", color.hexString);
+
+        $("#output-red").val(color.red);
+        $("#output-green").val(color.green);
+        $("#output-blue").val(color.blue);
+
+        $("#output-hex").val(color.hexString);
+        $("#output-hsl").val(color.hslString);
+        $("#output-hsla").val(color.hslaString);
+        $("#output-rgb").val(color.rgbString);
+        $("#output-rgba").val(color.rgbaString);
+    });
+});
+</script>
