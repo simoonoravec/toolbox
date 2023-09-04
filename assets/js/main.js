@@ -1,6 +1,8 @@
 $(function() {
-    $("#loading").show();
+    Toolbox.setDarkMode(Toolbox.getDarkMode());
+    $("#darkmode-switch").on("click", Toolbox.toggleDarkMode);
 
+    $("#loading").show();
     initTooltips();
 
     document.addEventListener("htmx:responseError", function(evt) {

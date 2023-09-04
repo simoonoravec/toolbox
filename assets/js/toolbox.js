@@ -63,4 +63,38 @@ class Toolbox {
             }
         });
     }
+
+    static getDarkMode() {
+        if (typeof localStorage.getItem("darkMode") == 'undefined') {
+            return true;
+        }
+
+        return Toolbox.parseBoolean(localStorage.getItem("darkMode"));
+    }
+
+    static toggleDarkMode() {
+        Toolbox.setDarkMode(!Toolbox.getDarkMode());
+    }
+
+    static setDarkMode(val) { 
+        if (val) {
+            localStorage.setItem("darkMode", true);
+
+            $("html").attr("data-bs-theme", "dark");
+
+            $("#darkmode-switch").removeClass("bi-sun-fill").addClass("bi-sun");
+            $("#loading-img").removeClass("filter-invert");
+        } else {
+            localStorage.setItem("darkMode", false);
+
+            $("html").attr("data-bs-theme", "light");
+
+            $("#darkmode-switch").removeClass("bi-sun").addClass("bi-sun-fill");
+            $("#loading-img").addClass("filter-invert");
+        }
+    }
+
+    static parseBoolean(val) {
+        return /^true$/i.test(val) ? true : false;
+    }
 }

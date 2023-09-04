@@ -17,3 +17,7 @@
 .alert-small {
     padding: .5rem 1rem;  
 }
+
+.filter-invert {
+    filter: invert();
+}
