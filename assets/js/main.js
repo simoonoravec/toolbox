@@ -2,6 +2,8 @@ $(function() {
     Toolbox.setDarkMode(Toolbox.getDarkMode());
     $("#darkmode-switch").on("click", Toolbox.toggleDarkMode);
 
+    $(window).on("hashchange", Toolbox.updatePage);
+
     $("#loading").show();
     initTooltips();
 
@@ -10,6 +12,8 @@ $(function() {
     });
 
     document.addEventListener("htmx:beforeSwap", function(evt) {
+        console.log("swapping");
+
         if (evt.detail.requestConfig.parameters.noUnregisterEvents) {
             return;
         }
@@ -18,6 +22,9 @@ $(function() {
     });
 
     document.addEventListener("htmx:afterSwap", function(evt) {
+        Toolbox.disablePageUpdate = false;
+        console.log("swapped");
+
         initTooltips();
     });
 
@@ -26,12 +33,7 @@ $(function() {
         Toolbox.registerNavbarEvents();
 
         setTimeout(() => {
-            let hash = location.hash.replace("#", "");
-            if (hash.length == 0 || $(`#navlink-${hash}`).length == 0) {
-                htmx.trigger(`#${$(".nav-link").first().attr("id")}`, "click");
-            } else {
-                htmx.trigger(`#${$(`#navlink-${hash}`).attr("id")}`, "click");
-            }
+            Toolbox.updatePage();
 
             $("#loading").fadeOut(300);
             $("#app").delay(100).fadeIn(300);

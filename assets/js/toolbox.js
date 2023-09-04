@@ -1,5 +1,6 @@
 class Toolbox {
     static eventTargets = [];
+    static disablePageUpdate = false;
 
     static registerEvent(target, event, func) {
         $(target).on(event, func);
@@ -16,6 +17,8 @@ class Toolbox {
 
     static registerNavbarEvents() {
         $(".nav-link").on("click", function() {
+            Toolbox.disablePageUpdate = true;
+
             $(".nav-link").removeClass("active");
             $(this).addClass("active");
             location.hash = $(this).data("page-name");
@@ -95,5 +98,20 @@ class Toolbox {
 
     static parseBoolean(val) {
         return /^true$/i.test(val) ? true : false;
+    }
+
+    static updatePage() {
+        if (Toolbox.disablePageUpdate) {
+            return;
+        }
+
+        console.log("updating page");
+
+        let hash = location.hash.replace("#", "");
+        if (hash.length == 0 || $(`#navlink-${hash}`).length == 0) {
+            htmx.trigger(`#${$(".nav-link").first().attr("id")}`, "click");
+        } else {
+            htmx.trigger(`#${$(`#navlink-${hash}`).attr("id")}`, "click");
+        }
     }
 }
