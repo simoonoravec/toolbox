@@ -105,8 +105,6 @@ class Toolbox {
             return;
         }
 
-        console.log("updating page");
-
         let hash = location.hash.replace("#", "");
         if (hash.length == 0 || $(`#navlink-${hash}`).length == 0) {
             htmx.trigger(`#${$(".nav-link").first().attr("id")}`, "click");

@@ -12,8 +12,6 @@ $(function() {
     });
 
     document.addEventListener("htmx:beforeSwap", function(evt) {
-        console.log("swapping");
-
         if (evt.detail.requestConfig.parameters.noUnregisterEvents) {
             return;
         }
@@ -23,7 +21,6 @@ $(function() {
 
     document.addEventListener("htmx:afterSwap", function(evt) {
         Toolbox.disablePageUpdate = false;
-        console.log("swapped");
 
         initTooltips();
     });
