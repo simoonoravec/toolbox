@@ -34,7 +34,7 @@ $(function() {
             $("#loading").fadeOut(300);
             $("#app").delay(100).fadeIn(300);
         }, 100);
-    });
+    }).catch(() => Toolbox.showError());
 });
 
 const initTooltips = () => document.querySelectorAll("[data-bs-toggle='tooltip']").forEach((el) => new bootstrap.Tooltip(el));

@@ -29,14 +29,11 @@ class Toolbox {
     }
 
     static generateNavbar() {
-        return new Promise((resolve, reject) => {
-            $.ajaxSetup({
-                error: function(xhr, status, error) {
-                    reject();
-                    showError();
-                }
-            });
-            $.get("assets/navbar.json", (data) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const req = await fetch("assets/navbar.json");
+                const data = await req.json();
+
                 $(".nav").empty();
                 for (let i in data) {
                     let item = data[i];
@@ -61,7 +58,9 @@ class Toolbox {
                 }
     
                 resolve();
-            });
+            } catch (e) {
+                reject();
+            }
         });
     }
 }
