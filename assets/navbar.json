@@ -19,7 +19,7 @@
     },
     {
         "name": "password",
-        "title": "Password",
+        "title": "Password generator",
         "icon": "key-fill",
         "html": "password.html"
     },
