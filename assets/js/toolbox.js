@@ -86,7 +86,6 @@ class Toolbox {
             $("#loading-img").removeClass("filter-invert");
         } else {
             localStorage.setItem("darkMode", false);
-
             $("html").attr("data-bs-theme", "light");
 
             $("#darkmode-switch").removeClass("bi-sun").addClass("bi-sun-fill");
