@@ -15,15 +15,11 @@ class Toolbox {
     }
 
     static registerNavbarEvents() {
-        let elements = document.getElementsByClassName("nav-link");
-        for(let i = 0; i < elements.length; i++) {
-            elements[i].onclick = function () {
-                for(let j = 0; j < elements.length; j++) elements[j].classList.remove("active");
-                this.classList.add("active");
-    
-                location.hash = $(this).data("page-name");
-            }
-        }
+        $(".nav-link").on("click", function() {
+            $(".nav-link").removeClass("active");
+            $(this).addClass("active");
+            location.hash = $(this).data("page-name");
+        })
     }
 
     static showError() {
