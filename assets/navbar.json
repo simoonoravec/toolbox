@@ -34,12 +34,17 @@
         "title": "Lorem Ipsum generator",
         "icon": "text-paragraph",
         "html": "lipsum.html"
-    }
-    ,
+    },
     {
         "name": "color-picker",
         "title": "Color picker",
         "icon": "eyedropper",
         "html": "color-picker.html"
+    },
+    {
+        "name": "uuid",
+        "title": "UUID generator",
+        "icon": "dice-5",
+        "html": "uuid.html"
     }
 ]
