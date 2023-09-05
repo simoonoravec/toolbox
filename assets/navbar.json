@@ -1,5 +1,11 @@
 [
     {
+        "name": "intro",
+        "title": "Introduction",
+        "icon": "wrench-adjustable-circle",
+        "html": "intro.html"
+    },
+    {
         "name": "base64",
         "title": "Base64",
         "icon": "box-seam",

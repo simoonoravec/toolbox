@@ -1,0 +1,14 @@
+{
+    "theme_color": "#0d6efd",
+    "background_color": "#212529",
+    "display": "standalone",
+    "orientation": "landscape",
+    "scope": "./",
+    "start_url": "./",
+    "icons": [
+        {
+            "src": "assets/favicon.ico",
+            "sizes": "any"
+        }
+    ]
+}
