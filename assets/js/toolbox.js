@@ -68,7 +68,7 @@ class Toolbox {
     }
 
     static getDarkMode() {
-        if (typeof localStorage.getItem("darkMode") == 'undefined') {
+        if (localStorage.getItem("darkMode") == null) {
             return true;
         }
 
