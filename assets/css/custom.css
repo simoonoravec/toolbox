@@ -21,3 +21,9 @@
 .filter-invert {
     filter: invert();
 }
+
+.icon {
+    display: inline-block;
+    vertical-align: middle;
+    height: calc(1.275rem + .3vw);
+}
