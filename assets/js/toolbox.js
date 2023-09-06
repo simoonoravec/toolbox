@@ -25,7 +25,9 @@ class Toolbox {
         })
     }
 
-    static showError() {
+    static showError(text = null) {
+        text == null ? $("#error-msg").text('An internal error has occured!') : $("#error-msg").text(text);
+
         $("#app").fadeOut(100);
         $("#loading").fadeOut(200);
         $("#error").delay(100).fadeIn(200);
