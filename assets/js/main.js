@@ -46,4 +46,7 @@ $(function() {
     }).catch(() => Toolbox.showError());
 });
 
+/**
+ * This method registers all Bootstrap tooltips
+ */
 const initTooltips = () => document.querySelectorAll("[data-bs-toggle='tooltip']").forEach((el) => new bootstrap.Tooltip(el));
