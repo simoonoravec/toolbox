@@ -1,12 +1,27 @@
+/**
+ * This class contains methods that ensure the basic functionality of the Toolbox
+ */
+
 class Toolbox {
+    //Initialize variables
     static eventTargets = [];
     static disablePageUpdate = false;
 
+    /**
+     * Always use this function to bind events for utilities to make sure that
+     * the events get unbound when the user switches to anothe utility
+     * @param {String} target Target element ID or class name
+     * @param {String} event Event to listen for
+     * @param {Object} func Function to execute
+     */
     static registerEvent(target, event, func) {
         $(target).on(event, func);
         Toolbox.eventTargets.push(target);
     }
 
+    /**
+     * Unbind all registered events
+     */
     static unregisterEvents() {
         for (let i in Toolbox.eventTargets) {
             $(Toolbox.eventTargets[i]).unbind();
@@ -15,6 +30,9 @@ class Toolbox {
         Toolbox.eventTargets = [];
     }
 
+    /**
+     * Bind events for the navigation bar
+     */
     static registerNavbarEvents() {
         $(".nav-link").on("click", function() {
             Toolbox.disablePageUpdate = true;
@@ -25,6 +43,10 @@ class Toolbox {
         })
     }
 
+    /**
+     * Hide the page and show a fatal error message
+     * @param {String} text The error message
+     */
     static showError(text = null) {
         text == null ? $("#error-msg").text('An internal error has occured!') : $("#error-msg").text(text);
 
@@ -33,6 +55,10 @@ class Toolbox {
         $("#error").delay(100).fadeIn(200);
     }
 
+    /**
+     * Generate the navigation bar based on the 'navbar.json' file
+     * @returns {Promise}
+     */
     static generateNavbar() {
         return new Promise(async (resolve, reject) => {
             try {
@@ -69,6 +95,10 @@ class Toolbox {
         });
     }
 
+    /**
+     * Check if dark mode for the page is enabled
+     * @returns {Boolean}
+     */
     static getDarkMode() {
         if (localStorage.getItem("darkMode") == null) {
             return true;
@@ -77,10 +107,17 @@ class Toolbox {
         return Toolbox.parseBoolean(localStorage.getItem("darkMode"));
     }
 
+    /**
+     * Toggle the dark mode
+     */
     static toggleDarkMode() {
         Toolbox.setDarkMode(!Toolbox.getDarkMode());
     }
 
+    /**
+     * Set the dark mode state
+     * @param {Boolean} val 
+     */
     static setDarkMode(val) { 
         if (val) {
             localStorage.setItem("darkMode", true);
@@ -98,10 +135,18 @@ class Toolbox {
         }
     }
 
+    /**
+     * Parse a String to a Boolean
+     * @param {String} val 
+     * @returns {Boolean}
+     */
     static parseBoolean(val) {
         return /^true$/i.test(val) ? true : false;
     }
 
+    /**
+     * Update the displayed page (used when user changes the hash in the address bar)
+     */
     static updatePage() {
         if (Toolbox.disablePageUpdate) {
             return;

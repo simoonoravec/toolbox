@@ -1,12 +1,13 @@
+//Run when the page has finished loading
 $(function() {
+    //Set the page color mode
     Toolbox.setDarkMode(Toolbox.getDarkMode());
+
+    //Register events
+    $(window).on("hashchange", Toolbox.updatePage);
     $("#darkmode-switch").on("click", Toolbox.toggleDarkMode);
 
-    $(window).on("hashchange", Toolbox.updatePage);
-
-    $("#loading").show();
-    initTooltips();
-
+    //Register HTMX events
     document.addEventListener("htmx:responseError", function(evt) {
         Toolbox.showError();
     });
@@ -25,6 +26,13 @@ $(function() {
         initTooltips();
     });
 
+    //Show loading
+    $("#loading").show();
+
+    //Initialize Bootstrap tooltips
+    initTooltips();
+
+    //Generate navigation bar
     Toolbox.generateNavbar().then(() => {
         htmx.process(".nav");
         Toolbox.registerNavbarEvents();
