@@ -13,9 +13,15 @@
     },
     {
         "name": "hashes",
-        "title": "Hashes",
+        "title": "Hash generator",
         "icon": "hash",
         "html": "hashes.html"
+    },
+    {
+        "name": "checksum",
+        "title": "File checksum",
+        "icon": "card-checklist",
+        "html": "checksum.html"
     },
     {
         "name": "timestamp",

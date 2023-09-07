@@ -1,4 +1,4 @@
-<span class="fs-2">Hashes</span>
+<span class="fs-2">Hash generator</span>
 <div class="form-floating mt-3">
     <textarea class="form-control textarea-big trigger" placeholder="Input" id="input"></textarea>
     <label for="input">Input</label>
@@ -24,7 +24,7 @@
     <input type="text" class="form-control" id="output-sha512" readonly onfocus="this.select();">
 </div>
 
-<script id="hashes-js" type="text/javascript" src="assets/js/hashes.min.js"></script>
+<script id="hashes-js" type="text/javascript" src="assets/js/crypto.min.js"></script>
 <script>
     Toolbox.registerEvent("#hashes-js", "load", update);
     Toolbox.registerEvent("#input", "input", update);
@@ -32,9 +32,9 @@
     function update() {
         let val = $("#input").val();
 
-        $("#output-md5").val(new Hashes.MD5().hex(val));
-        $("#output-sha1").val(new Hashes.SHA1().hex(val));
-        $("#output-sha256").val(new Hashes.SHA256().hex(val));
-        $("#output-sha512").val(new Hashes.SHA512().hex(val));
+        $("#output-md5").val(CryptoJS.MD5(val).toString());
+        $("#output-sha1").val(CryptoJS.SHA1(val).toString());
+        $("#output-sha256").val(CryptoJS.SHA256(val).toString());
+        $("#output-sha512").val(CryptoJS.SHA512(val).toString());
     }
 </script>

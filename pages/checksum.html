@@ -1,0 +1,104 @@
+<span class="fs-2">File checksum</span>
+<div class="alert alert-warning alert-small" role="alert"><i class="bi bi-exclamation-circle-fill"></i> Warning!<br>The checksum is generated in your browser and there is no file size limit.<br>Generating checksums for large files can take a lot of time or even crash your browser.</div>
+
+<div class="mt-5">
+    <label for="file" class="form-label">Select the file you want to generate checksum for:</label>
+    <input class="form-control trigger" type="file" id="file">
+</div>
+
+<hr>
+
+<div class="input-group mt-5 mb-2">
+    <span class="input-group-text">
+        <div class="form-check">
+            <input class="form-check-input trigger" type="checkbox" id="chk-md5" checked>
+            <label class="form-check-label" for="chk-md5">MD5</label>
+        </div>
+    </span>
+    <input type="text" class="form-control" id="output-md5" readonly onfocus="this.select();">
+</div>
+
+<div class="input-group mb-2">
+    <span class="input-group-text">
+        <div class="form-check">
+            <input class="form-check-input trigger" type="checkbox" id="chk-sha1" checked>
+            <label class="form-check-label" for="chk-sha1">SHA1</label>
+        </div>
+    </span>
+    <input type="text" class="form-control" id="output-sha1" readonly onfocus="this.select();">
+</div>
+
+<div class="input-group mb-2">
+    <span class="input-group-text">
+        <div class="form-check">
+            <input class="form-check-input trigger" type="checkbox" id="chk-sha256">
+            <label class="form-check-label" for="chk-sha256">SHA256</label>
+        </div>
+    </span>
+    <input type="text" class="form-control" id="output-sha256" readonly onfocus="this.select();">
+</div>
+
+<div class="input-group mb-2">
+    <span class="input-group-text">
+        <div class="form-check">
+            <input class="form-check-input trigger" type="checkbox" id="chk-sha512">
+            <label class="form-check-label" for="chk-sha512">SHA512</label>
+        </div>
+    </span>
+    <input type="text" class="form-control" id="output-sha512" readonly onfocus="this.select();">
+</div>
+
+<script type="text/javascript" src="assets/js/crypto.min.js"></script>
+<script>
+    Toolbox.registerEvent(".trigger", "change", update);
+
+    function update() {
+        let file = $("#file").get(0).files[0];
+        if (file) {
+            readBinaryData(file).then((binary) => {
+                let processed = CryptoJS.lib.WordArray.create(binary);
+
+                $("#chk-md5").is(":checked") && makeHash("md5", processed);
+                $("#chk-sha1").is(":checked") && makeHash("sha1", processed);
+                $("#chk-sha256").is(":checked") && makeHash("sha256", processed);
+                $("#chk-sha512").is(":checked") && makeHash("sha512", processed);
+            });
+        }
+    }
+
+    function makeHash(type, data) {
+        if ($(`#chk-${type}`).is(":checked")) {
+            let val = "Unknown hash type";
+            switch (type) {
+                case 'md5':
+                    val = CryptoJS.MD5(data).toString();
+                    break;
+                case 'sha1':
+                    val = CryptoJS.SHA1(data).toString();
+                    break;
+                case 'sha256':
+                    val = CryptoJS.SHA256(data).toString();
+                    break;
+                case 'sha512':
+                    val = CryptoJS.SHA512(data).toString();
+                    break;
+            }
+
+            $(`#output-${type}`).val(val);
+        } else {
+            $(`#output-${type}`).val(undefined);
+        }
+    }
+
+    function readBinaryData(file) {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+
+            reader.onload = function (event) {
+                resolve(event.target.result);
+            };
+
+            reader.readAsArrayBuffer(file);
+        });
+    }
+</script>

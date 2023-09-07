@@ -9,7 +9,13 @@ $(function() {
 
     //Register HTMX events
     document.addEventListener("htmx:responseError", function(evt) {
-        Toolbox.showError();
+        let status = evt.detail.xhr.status || 0;
+        
+        if (status == 404) {
+            Toolbox.showError('The requested page could not be found.');
+        } else {
+            Toolbox.showError();
+        }
     });
 
     document.addEventListener("htmx:beforeSwap", function(evt) {
