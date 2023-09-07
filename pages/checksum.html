@@ -58,10 +58,10 @@
             readBinaryData(file).then((binary) => {
                 let processed = CryptoJS.lib.WordArray.create(binary);
 
-                $("#chk-md5").is(":checked") && makeHash("md5", processed);
-                $("#chk-sha1").is(":checked") && makeHash("sha1", processed);
-                $("#chk-sha256").is(":checked") && makeHash("sha256", processed);
-                $("#chk-sha512").is(":checked") && makeHash("sha512", processed);
+                makeHash("md5", processed);
+                makeHash("sha1", processed);
+                makeHash("sha256", processed);
+                makeHash("sha512", processed);
             });
         }
     }
