@@ -27,3 +27,9 @@
     vertical-align: middle;
     height: calc(1.275rem + .3vw);
 }
+
+.color-picker-current {
+    width: 50%;
+    height: 3rem;
+    border-radius: 1rem;
+}
