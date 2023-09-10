@@ -6,4 +6,4 @@
 
 #
 
-You can host it yourself or use this URL: https://toolbox.0r4v3c.xyz/ (Hosted on GitHub pages)
+You can host it yourself or use this URL: https://toolbox.0r4v3c.xyz
