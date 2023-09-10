@@ -12,18 +12,43 @@
 <hr>
 
 <span class="fs-5 d-block">Convert date and time to timestamp</span>
-<input type="text" class="form-control" id="date-picker" placeholder="Click here and set the date and time">
+<div class="input-group mt-2">
+    <input type="text" class="form-control" id="date-picker" placeholder="Select date and time" onclick="picker.open();">
+    <span class="input-group-text" id="btn-copy" style="cursor: pointer;"> <i id="btn-copy-tooltip" class="bi bi-clipboard" data-bs-toggle="tooltip" data-bs-title="Copied to clipboard!" data-bs-trigger="manual"></i></span>
+</div>
+
 
 <script id="flatpickr-js" type="text/javascript" src="assets/js/flatpickr.min.js"></script>
 <script>
     $(update);
 
+    let picker;
     Toolbox.registerEvent("#flatpickr-js", "load", function() {
-        $("#date-picker").flatpickr({
+        picker = $("#date-picker").flatpickr({
             enableTime: true,
             enableSeconds: true,
-            dateFormat: "U"
+            dateFormat: "U",
+            clickOpens: false
         });
+    });
+
+    Toolbox.registerEvent("#btn-copy", "click", function() {
+        var input = document.getElementById("date-picker");
+
+        input.select();
+        input.setSelectionRange(0, 99999);
+
+        navigator.clipboard.writeText(input.value);
+
+        if ($("#btn-copy").hasClass("disabled"))
+            return;
+
+        $("#btn-copy-tooltip").tooltip("show");
+        $("#btn-copy").addClass("disabled");
+        setTimeout(() => {
+            $("#btn-copy-tooltip").tooltip("hide");
+            $("#btn-copy").removeClass("disabled");
+        }, 1000);
     });
 
     Toolbox.registerEvent("#timestamp", "input", update);
