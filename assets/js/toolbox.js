@@ -159,4 +159,40 @@ class Toolbox {
             htmx.trigger(`#${$(`#navlink-${hash}`).attr("id")}`, "click");
         }
     }
+
+    /**
+     * This method registers all needed HTMX events
+     */
+    static registerHTMXevents() {
+        document.addEventListener("htmx:responseError", function(evt) {
+            let status = evt.detail.xhr.status || 0;
+            
+            if (status == 404) {
+                Toolbox.showError('The requested page could not be found.');
+            } else {
+                Toolbox.showError();
+            }
+        });
+    
+        document.addEventListener("htmx:beforeSwap", function(evt) {
+            if (evt.detail.requestConfig.parameters.noUnregisterEvents) {
+                return;
+            }
+    
+            Toolbox.unregisterEvents();
+        });
+    
+        document.addEventListener("htmx:afterSwap", function(evt) {
+            Toolbox.disablePageUpdate = false;
+    
+            Toolbox.initTooltips();
+        });
+    }
+
+    /**
+     * This method initializes all Bootstrap tooltips
+     */
+    static initTooltips() {
+        document.querySelectorAll("[data-bs-toggle='tooltip']").forEach((el) => new bootstrap.Tooltip(el));
+    }
 }

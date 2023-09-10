@@ -1,42 +1,17 @@
 //Run when the page has finished loading
 $(function() {
-    //Set the page color mode
-    Toolbox.setDarkMode(Toolbox.getDarkMode());
+    Toolbox.setDarkMode(Toolbox.getDarkMode()); //Set the page color mode
 
-    //Register events
+    //Register global events
     $(window).on("hashchange", Toolbox.updatePage);
     $("#darkmode-switch").on("click", Toolbox.toggleDarkMode);
 
-    //Register HTMX events
-    document.addEventListener("htmx:responseError", function(evt) {
-        let status = evt.detail.xhr.status || 0;
-        
-        if (status == 404) {
-            Toolbox.showError('The requested page could not be found.');
-        } else {
-            Toolbox.showError();
-        }
-    });
+    Toolbox.registerHTMXevents();
+    //
 
-    document.addEventListener("htmx:beforeSwap", function(evt) {
-        if (evt.detail.requestConfig.parameters.noUnregisterEvents) {
-            return;
-        }
+    $("#loading").show(); //Show loading
 
-        Toolbox.unregisterEvents();
-    });
-
-    document.addEventListener("htmx:afterSwap", function(evt) {
-        Toolbox.disablePageUpdate = false;
-
-        initTooltips();
-    });
-
-    //Show loading
-    $("#loading").show();
-
-    //Initialize Bootstrap tooltips
-    initTooltips();
+    Toolbox.initTooltips(); //Initialize Bootstrap tooltips
 
     //Generate navigation bar
     Toolbox.generateNavbar().then(() => {
@@ -51,8 +26,3 @@ $(function() {
         }, 100);
     }).catch(() => Toolbox.showError());
 });
-
-/**
- * This method registers all Bootstrap tooltips
- */
-const initTooltips = () => document.querySelectorAll("[data-bs-toggle='tooltip']").forEach((el) => new bootstrap.Tooltip(el));
