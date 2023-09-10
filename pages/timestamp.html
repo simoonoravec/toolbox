@@ -40,6 +40,8 @@
 
         navigator.clipboard.writeText(input.value);
 
+        window.getSelection().removeAllRanges();
+
         if ($("#btn-copy").hasClass("disabled"))
             return;
 
