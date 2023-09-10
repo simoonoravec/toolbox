@@ -13,7 +13,7 @@
 
 <span class="fs-5 d-block">Convert date and time to timestamp</span>
 <div class="input-group mt-2">
-    <input type="text" class="form-control" id="date-picker" placeholder="Select date and time" onclick="picker.open();">
+    <input type="text" class="form-control" id="date-picker" placeholder="Select date and time" onclick="picker.open()">
     <span class="input-group-text" id="btn-copy" style="cursor: pointer;"> <i id="btn-copy-tooltip" class="bi bi-clipboard" data-bs-toggle="tooltip" data-bs-title="Copied to clipboard!" data-bs-trigger="manual"></i></span>
 </div>
 
@@ -22,7 +22,6 @@
 <script>
     $(update);
 
-    let picker;
     Toolbox.registerEvent("#flatpickr-js", "load", function() {
         picker = $("#date-picker").flatpickr({
             enableTime: true,
