@@ -20,7 +20,7 @@
 
 <script id="flatpickr-js" type="text/javascript" src="assets/js/flatpickr.min.js"></script>
 <script>
-    $(update);
+    $(update(true));
 
     Toolbox.registerEvent("#flatpickr-js", "load", function() {
         picker = $("#date-picker").flatpickr({
@@ -61,7 +61,7 @@
     function isTimestampValid(str) {
         const num = parseInt(str, 10);
 
-        if (isNaN(num) || num <= 0) {
+        if (isNaN(num) || num < 0) {
             return false;
         }
 
@@ -72,9 +72,14 @@
         return new Date(timestamp*1000).toLocaleString(undefined);
     }
 
-    function update() {
+    function update(force = false) {
         let timestamp;
         let ts_input = $("#timestamp").val();
+
+        if (ts_input.length == 0 && !force) {
+            return;
+        }
+
         if (!isTimestampValid(ts_input)) {
             timestamp = uts();
         } else {

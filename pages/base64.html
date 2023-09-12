@@ -38,6 +38,7 @@
         //
 
         if (mode == "encode") {
+            $("#output").removeClass("text-warning");
             $("#url-encode-holder").css("visibility", "visible");
 
             let val = btoa($("#input").val());
