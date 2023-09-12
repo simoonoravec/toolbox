@@ -186,6 +186,7 @@ class Toolbox {
             Toolbox.disablePageUpdate = false;
     
             Toolbox.initTooltips();
+            Toolbox.initCopyButtons();
         });
     }
 
@@ -194,5 +195,65 @@ class Toolbox {
      */
     static initTooltips() {
         document.querySelectorAll("[data-bs-toggle='tooltip']").forEach((el) => new bootstrap.Tooltip(el));
+    }
+
+    /**
+     * Initializes copy button elements
+     */
+    static initCopyButtons() {
+        $(".toolbox-copy").each((i, obj) => {
+            let target = $(obj).data("tb-copy-target");
+            let tooltip = $(obj).data("tb-copy-tooltip");
+
+            if ($(target).length == 0) {
+                return;
+            }
+
+            if ($(tooltip).length == 0) {
+                tooltip = null;
+            }
+
+            Toolbox.registerEvent(obj, "click", () => {
+                Toolbox.copyToClipboard(target, obj, tooltip);
+            });
+        });
+    }
+
+    /**
+     * Lets you copy text from an input to clipboard
+     * @param {*} inputElement Target input
+     * @param {*} buttonElement Copy button
+     * @param {*} tooltopElement Tooltip displayed on copy (optional)
+     */
+    static copyToClipboard(inputElement, buttonElement, tooltopElement = null) {
+        const el = $(inputElement);
+        const btn = $(buttonElement);
+
+        if (el.length == 0 || btn.length == 0) {
+            return;
+        }
+
+        const input = el.get(0);
+
+        input.select();
+        input.setSelectionRange(0, 99999);
+
+        navigator.clipboard.writeText(el.val());
+
+        window.getSelection().removeAllRanges();
+
+        if (btn.hasClass("disabled"))
+            return;
+
+        if (tooltopElement != null) {
+            const tooltip = $(tooltopElement);
+
+            tooltip.tooltip("show");
+            btn.addClass("disabled");
+            setTimeout(() => {
+                tooltip.tooltip("hide");
+                btn.removeClass("disabled");
+            }, 1000);
+        }
     }
 }

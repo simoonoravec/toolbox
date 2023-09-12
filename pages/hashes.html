@@ -6,22 +6,26 @@
 
 <div class="input-group mt-5 mb-2">
     <span class="input-group-text">MD5</span>
-    <input type="text" class="form-control" id="output-md5" readonly onfocus="this.select();">
+    <input type="text" class="form-control" id="output-md5" readonly>
+    <span class="input-group-text toolbox-copy" data-tb-copy-target="#output-md5" data-tb-copy-tooltip="#copy-tooltip-md5" style="cursor: pointer;"> <i id="copy-tooltip-md5" class="bi bi-clipboard" data-bs-toggle="tooltip" data-bs-title="Copied to clipboard!" data-bs-trigger="manual"></i></span>
 </div>
 
 <div class="input-group mb-2">
     <span class="input-group-text">SHA1</span>
-    <input type="text" class="form-control" id="output-sha1" readonly onfocus="this.select();">
+    <input type="text" class="form-control" id="output-sha1" readonly>
+    <span class="input-group-text toolbox-copy" data-tb-copy-target="#output-sha1" data-tb-copy-tooltip="#copy-tooltip-sha1" style="cursor: pointer;"> <i id="copy-tooltip-sha1" class="bi bi-clipboard" data-bs-toggle="tooltip" data-bs-title="Copied to clipboard!" data-bs-trigger="manual"></i></span>
 </div>
 
 <div class="input-group mb-2">
     <span class="input-group-text">SHA256</span>
-    <input type="text" class="form-control" id="output-sha256" readonly onfocus="this.select();">
+    <input type="text" class="form-control" id="output-sha256" readonly>
+    <span class="input-group-text toolbox-copy" data-tb-copy-target="#output-sha256" data-tb-copy-tooltip="#copy-tooltip-sha256" style="cursor: pointer;"> <i id="copy-tooltip-sha256" class="bi bi-clipboard" data-bs-toggle="tooltip" data-bs-title="Copied to clipboard!" data-bs-trigger="manual"></i></span>
 </div>
 
 <div class="input-group mb-2">
     <span class="input-group-text">SHA512</span>
-    <input type="text" class="form-control" id="output-sha512" readonly onfocus="this.select();">
+    <input type="text" class="form-control" id="output-sha512" readonly>
+    <span class="input-group-text toolbox-copy" data-tb-copy-target="#output-sha512" data-tb-copy-tooltip="#copy-tooltip-sha512" style="cursor: pointer;"> <i id="copy-tooltip-sha512" class="bi bi-clipboard" data-bs-toggle="tooltip" data-bs-title="Copied to clipboard!" data-bs-trigger="manual"></i></span>
 </div>
 
 <script id="hashes-js" type="text/javascript" src="assets/js/crypto.min.js"></script>

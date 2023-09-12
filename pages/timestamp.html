@@ -14,7 +14,7 @@
 <span class="fs-5 d-block">Convert date and time to timestamp</span>
 <div class="input-group mt-2">
     <input type="text" class="form-control" id="date-picker" placeholder="Select date and time" onclick="picker.open()">
-    <span class="input-group-text" id="btn-copy" style="cursor: pointer;"> <i id="btn-copy-tooltip" class="bi bi-clipboard" data-bs-toggle="tooltip" data-bs-title="Copied to clipboard!" data-bs-trigger="manual"></i></span>
+    <span class="input-group-text toolbox-copy" data-tb-copy-target="#date-picker" data-tb-copy-tooltip="#copy-tooltip" id="btn-copy" style="cursor: pointer;"> <i id="copy-tooltip" class="bi bi-clipboard" data-bs-toggle="tooltip" data-bs-title="Copied to clipboard!" data-bs-trigger="manual"></i></span>
 </div>
 
 
@@ -32,27 +32,6 @@
             dateFormat: "U",
             clickOpens: false
         });
-    });
-
-    Toolbox.registerEvent("#btn-copy", "click", function() {
-        var input = document.getElementById("date-picker");
-
-        input.select();
-        input.setSelectionRange(0, 99999);
-
-        navigator.clipboard.writeText(input.value);
-
-        window.getSelection().removeAllRanges();
-
-        if ($("#btn-copy").hasClass("disabled"))
-            return;
-
-        $("#btn-copy-tooltip").tooltip("show");
-        $("#btn-copy").addClass("disabled");
-        setTimeout(() => {
-            $("#btn-copy-tooltip").tooltip("hide");
-            $("#btn-copy").removeClass("disabled");
-        }, 1000);
     });
 
     Toolbox.registerEvent("#timestamp", "input", update);

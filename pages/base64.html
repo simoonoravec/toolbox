@@ -13,12 +13,14 @@
     </label>
 </div>
 
-<div class="form-floating mt-3">
+<div class="form-floating mt-3 mb-5">
     <textarea class="form-control textarea-big trigger" placeholder="Input" id="input"></textarea>
     <label for="input">Input</label>
 </div>
 
-<div class="form-floating mt-5">
+<button class="btn btn-primary btn-sm toolbox-copy" id="btn-copy" data-tb-copy-target="#output" data-tb-copy-tooltip="#btn-copy" data-bs-toggle="tooltip" data-bs-title="Copied to clipboard!" data-bs-trigger="manual">Copy</button>
+
+<div class="form-floating mt-2">
     <textarea class="form-control textarea-big" id="output" readonly></textarea>
     <label for="output">Output</label>
 </div>
