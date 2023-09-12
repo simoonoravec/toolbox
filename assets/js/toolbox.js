@@ -229,18 +229,11 @@ class Toolbox {
         const el = $(inputElement);
         const btn = $(buttonElement);
 
-        if (el.length == 0 || btn.length == 0) {
+        if (el.length == 0 || btn.length == 0 || el.val().length == 0) {
             return;
         }
 
-        const input = el.get(0);
-
-        input.select();
-        input.setSelectionRange(0, 99999);
-
         navigator.clipboard.writeText(el.val());
-
-        window.getSelection().removeAllRanges();
 
         if (btn.hasClass("disabled"))
             return;
