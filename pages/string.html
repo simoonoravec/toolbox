@@ -1,0 +1,110 @@
+<span class="fs-2">String tools</span>
+<div class="form-floating mt-3 mb-5">
+    <textarea class="form-control textarea-big trigger" placeholder="String" id="input"></textarea>
+    <label for="input">String</label>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-text">Characters</span>
+            <input type="text" class="form-control" id="output-length" readonly>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-text">Words</span>
+            <input type="text" class="form-control" id="output-words" readonly>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-text">Lines</span>
+            <input type="text" class="form-control" id="output-lines" readonly>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <span class="fs-5 d-block">Actions</span>
+    <button class="str-required btn btn-primary disabled" onclick="str_toUpper()">To Upper Case</button>
+    <button class="str-required btn btn-primary disabled" onclick="str_toLower()">To Lower Case</button>
+    <button class="str-required btn btn-primary disabled" onclick="str_capitalize()">Capitalize</button>
+</div>
+
+<div class="mt-2">
+    <button class="str-required btn btn-primary disabled" onclick="str_urlEncode()">URL encode</button>
+    <button class="str-required btn btn-primary disabled" onclick="str_urlDecode()">URL decode</button>
+    <button class="str-required btn btn-primary disabled" onclick="str_escape()">Slash-escape</button>
+    <button class="str-required btn btn-primary disabled" onclick="str_unescape()">Unescape</button>
+</div>
+
+<script>
+    $(update);
+
+    Toolbox.registerEvent("#input", "input", update);
+
+    function update() {
+        let val = $("#input").val();
+
+        if (val.length == 0) {
+            $(".str-required").addClass("disabled");
+        } else {
+            $(".str-required").removeClass("disabled");
+        }
+
+        $("#output-length").val(val.length);
+        $("#output-words").val(val.split(/\s+/).filter(i => i.trim() !== '').length);
+        $("#output-lines").val(val.split('\n').filter(i => i.trim() !== '').length);
+    }
+
+    function str_toUpper() {
+        $("#input").val($("#input").val().toUpperCase());
+    }
+
+    function str_toLower() {
+        $("#input").val($("#input").val().toLowerCase());
+    }
+
+    function str_capitalize() {
+        const words = $("#input").val().split(' ');
+
+        const capitalizedWords = words.map(word => {
+            if (!word) {
+                return word;
+            }
+
+            return word.charAt(0).toUpperCase() + word.slice(1);
+        });
+
+        $("#input").val(capitalizedWords.join(' '));
+    }
+
+    function str_urlEncode() {
+        $("#input").val(encodeURIComponent($("#input").val()));
+    }
+
+    function str_urlDecode() {
+        $("#input").val(decodeURIComponent($("#input").val()));
+    }
+
+    function str_escape() {
+        $("#input").val(JSON.stringify($("#input").val()).slice(1, -1));
+    }
+
+    function str_unescape() {
+        $("#input").val(function() {
+            return this.value.replace(/\\(.)/g, function(match, escapedChar) {
+                switch (escapedChar) {
+                case 'n': return '\n';
+                case 'r': return '\r';
+                case 't': return '\t';
+                case '\\': return '\\';
+                case '0': return '\0';
+                default: return escapedChar;
+                }
+            });
+        });
+    }
+
+</script>

@@ -6,6 +6,12 @@
         "html": "intro.html"
     },
     {
+        "name": "string",
+        "title": "String tools",
+        "icon": "card-text",
+        "html": "string.html"
+    },
+    {
         "name": "base64",
         "title": "Base64",
         "icon": "box-seam",
