@@ -185,8 +185,7 @@ class Toolbox {
         document.addEventListener("htmx:afterSwap", function(evt) {
             Toolbox.disablePageUpdate = false;
     
-            Toolbox.initTooltips();
-            Toolbox.initCopyButtons();
+            Toolbox.initCopyButtons().then(() => Toolbox.initTooltips());
         });
     }
 
@@ -201,21 +200,24 @@ class Toolbox {
      * Initializes copy button elements
      */
     static initCopyButtons() {
-        $(".toolbox-copy").each((i, obj) => {
-            let target = $(obj).data("tb-copy-target");
-            let tooltip = $(obj).data("tb-copy-tooltip");
-
-            if ($(target).length == 0) {
-                return;
-            }
-
-            if ($(tooltip).length == 0) {
-                tooltip = null;
-            }
-
-            Toolbox.registerEvent(obj, "click", () => {
-                Toolbox.copyToClipboard(target, obj, tooltip);
+        return new Promise((resolve) => {
+            $(".toolbox-copy").each((i, obj) => {
+                let target = $(obj).data("tb-copy-target");
+    
+                $(obj).attr("data-bs-toggle", "tooltip");
+                $(obj).attr("data-bs-title", "Copied to clipboard!");
+                $(obj).attr("data-bs-trigger", "manual");
+    
+                if ($(target).length == 0) {
+                    return;
+                }
+    
+                Toolbox.registerEvent(obj, "click", () => {
+                    Toolbox.copyToClipboard(target, obj);
+                });
             });
+            
+            resolve();
         });
     }
 
@@ -225,7 +227,7 @@ class Toolbox {
      * @param {*} buttonElement Copy button
      * @param {*} tooltopElement Tooltip displayed on copy (optional)
      */
-    static copyToClipboard(inputElement, buttonElement, tooltopElement = null) {
+    static copyToClipboard(inputElement, buttonElement) {
         const el = $(inputElement);
         const btn = $(buttonElement);
 
@@ -238,15 +240,12 @@ class Toolbox {
         if (btn.hasClass("disabled"))
             return;
 
-        if (tooltopElement != null) {
-            const tooltip = $(tooltopElement);
 
-            tooltip.tooltip("show");
-            btn.addClass("disabled");
-            setTimeout(() => {
-                tooltip.tooltip("hide");
-                btn.removeClass("disabled");
-            }, 1000);
-        }
+        btn.tooltip("show");
+        btn.addClass("disabled");
+        setTimeout(() => {
+            btn.tooltip("hide");
+            btn.removeClass("disabled");
+        }, 1000);
     }
 }
