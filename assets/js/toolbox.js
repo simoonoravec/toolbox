@@ -225,7 +225,6 @@ class Toolbox {
      * Lets you copy text from an input to clipboard
      * @param {*} inputElement Target input
      * @param {*} buttonElement Copy button
-     * @param {*} tooltopElement Tooltip displayed on copy (optional)
      */
     static copyToClipboard(inputElement, buttonElement) {
         const el = $(inputElement);
