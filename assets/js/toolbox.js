@@ -62,7 +62,7 @@ class Toolbox {
     static generateNavbar() {
         return new Promise(async (resolve, reject) => {
             try {
-                const req = await fetch("assets/navbar.json");
+                const req = await fetch("navbar.json");
                 const data = await req.json();
 
                 $(".nav").empty();
