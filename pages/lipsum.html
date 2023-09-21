@@ -48,14 +48,14 @@
 
         for (let i = 0; i < paragraphs; i++) {
             if (startWithLoremIpsum) {
-            loremIpsumText += "Lorem ipsum dolor sit amet, ";
+                loremIpsumText += "Lorem ipsum dolor sit amet, ";
             }
             for (let j = startWithLoremIpsum ? 4 : 0; j < wordsPerParagraph; j++) {
-            const randomIndex = Math.floor(Math.random() * words.length);
-            const word = words[randomIndex];
-            loremIpsumText += word + " ";
+                const word = words[Math.floor(Math.random() * words.length)];
+                loremIpsumText += word + " ";
             }
-            loremIpsumText += "\n\n";
+
+            loremIpsumText = loremIpsumText.trim() + ".\n\n";
         }
 
         return loremIpsumText.trim();
