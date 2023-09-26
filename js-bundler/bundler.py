@@ -6,6 +6,7 @@ js_files = [f for f in os.listdir('./src') if f.endswith('.js')]
 # Sort the files alphabetically to ensure consistent order
 js_files.sort()
 
+# Removes source mapping from JS files
 def removeSourceMapping(string):
     lines = string.splitlines()
     lines_filtered = [line for line in lines if not line.startswith("//# sourceMappingURL=")]
