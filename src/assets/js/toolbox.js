@@ -203,14 +203,14 @@ class Toolbox {
         return new Promise((resolve) => {
             $(".toolbox-copy").each((i, obj) => {
                 let target = $(obj).data("tb-copy-target");
+
+                if ($(target).length == 0) {
+                    return;
+                }
     
                 $(obj).attr("data-bs-toggle", "tooltip");
                 $(obj).attr("data-bs-title", "Copied to clipboard!");
                 $(obj).attr("data-bs-trigger", "manual");
-    
-                if ($(target).length == 0) {
-                    return;
-                }
     
                 Toolbox.registerEvent(obj, "click", () => {
                     Toolbox.copyToClipboard(target, obj);
