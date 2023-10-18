@@ -67,17 +67,23 @@
     }
 
     function str_capitalize() {
-        const words = $("#input").val().split(' ');
+        const lines = $("#input").val().split('\n');
 
-        const capitalizedWords = words.map(word => {
-            if (!word) {
-                return word;
-            }
+        const capitalizedLines = lines.map(line => {
+            const words = line.split(' ');
 
-            return word.charAt(0).toUpperCase() + word.slice(1);
+            const capitalizedWords = words.map(word => {
+                if (!word) {
+                    return word;
+                }
+
+                return word.charAt(0).toUpperCase() + word.slice(1);
+            });
+
+            return capitalizedWords.join(' ');
         });
 
-        $("#input").val(capitalizedWords.join(' '));
+        $("#input").val(capitalizedLines.join('\n'));
     }
 
     function str_urlEncode() {
